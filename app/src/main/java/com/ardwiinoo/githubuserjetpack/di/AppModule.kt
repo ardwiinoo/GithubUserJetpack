@@ -52,6 +52,4 @@ object AppModule {
     fun provideApiRepository(apiService: ApiService): ApiRepository {
         return ApiRepository(apiService)
     }
-
-
 }
