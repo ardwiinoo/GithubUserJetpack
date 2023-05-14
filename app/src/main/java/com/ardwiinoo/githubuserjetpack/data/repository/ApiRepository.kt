@@ -4,7 +4,9 @@ import com.ardwiinoo.githubuserjetpack.data.remote.apiService.ApiService
 import com.ardwiinoo.githubuserjetpack.data.remote.response.GithubResponse
 import javax.inject.Inject
 import com.ardwiinoo.githubuserjetpack.utils.Result
+import javax.inject.Singleton
 
+@Singleton
 class ApiRepository @Inject constructor(
     private val apiService: ApiService
 ) {
