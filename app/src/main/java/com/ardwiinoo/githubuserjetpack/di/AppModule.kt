@@ -1,18 +1,18 @@
 package com.ardwiinoo.githubuserjetpack.di
 
+import com.ardwiinoo.githubuserjetpack.BuildConfig
 import com.ardwiinoo.githubuserjetpack.data.remote.apiService.ApiService
+import com.ardwiinoo.githubuserjetpack.data.repository.ApiRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Singleton
-import com.ardwiinoo.githubuserjetpack.BuildConfig
-import com.ardwiinoo.githubuserjetpack.data.repository.ApiRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -52,5 +52,6 @@ object AppModule {
     fun provideApiRepository(apiService: ApiService): ApiRepository {
         return ApiRepository(apiService)
     }
+
 
 }
