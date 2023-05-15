@@ -21,7 +21,7 @@ android {
             useSupportLibrary true
         }
 
-        buildConfigField("String", "API_KEY", '"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"')
+        buildConfigField("String", "API_KEY", '"YOUR API KEY"')
         buildConfigField("String", "BASE_URL", '"https://api.github.com/"')
     }
 
