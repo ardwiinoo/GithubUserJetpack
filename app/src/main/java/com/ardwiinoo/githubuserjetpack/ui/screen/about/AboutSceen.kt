@@ -19,13 +19,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ardwiinoo.githubuserjetpack.GithubUserAppJetpack
 import com.ardwiinoo.githubuserjetpack.R
-import com.ardwiinoo.githubuserjetpack.ui.screen.home.HomeScreen
 import com.ardwiinoo.githubuserjetpack.ui.theme.GithubUserJetpackTheme
 
 @Composable
-fun AboutHomeScreen(
+fun AboutScreen(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -59,6 +57,6 @@ fun AboutHomeScreen(
 @Composable()
 fun HomeScreenPreview() {
     GithubUserJetpackTheme {
-        AboutHomeScreen()
+        AboutScreen()
     }
 }
