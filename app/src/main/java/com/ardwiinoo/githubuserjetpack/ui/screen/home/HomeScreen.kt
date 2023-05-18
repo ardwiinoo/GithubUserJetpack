@@ -29,13 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ardwiinoo.githubuserjetpack.data.remote.response.ItemsItem
-import com.ardwiinoo.githubuserjetpack.ui.theme.GithubUserJetpackTheme
+import com.ardwiinoo.githubuserjetpack.navigation.Screen
 import com.ardwiinoo.githubuserjetpack.utils.Result
 import kotlinx.coroutines.launch
 
@@ -43,6 +43,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
+    navController: NavHostController,
 ) {
     var username by remember { mutableStateOf("") }
     val searchResult by viewModel.userList.collectAsState()
@@ -81,7 +82,7 @@ fun HomeScreen(
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(users) { user ->
                         UserCard(user = user) {
-
+                            navController.navigate(Screen.Detail.createRoute(it))
                         }
                     }
                 }
@@ -98,12 +99,12 @@ fun HomeScreen(
 }
 
 @Composable
-fun UserCard(user: ItemsItem, onClick: () -> Unit) {
+fun UserCard(user: ItemsItem, onClick: (String) -> Unit) {
     Card(
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable(onClick = { onClick(user.login) }),
     ) {
         Row(
             modifier = Modifier.padding(8.dp)
@@ -121,13 +122,5 @@ fun UserCard(user: ItemsItem, onClick: () -> Unit) {
                 style = MaterialTheme.typography.h5
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable()
-fun HomeScreenPreview() {
-    GithubUserJetpackTheme {
-        HomeScreen()
     }
 }

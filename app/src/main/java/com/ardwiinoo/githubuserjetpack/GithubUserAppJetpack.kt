@@ -22,6 +22,8 @@ import androidx.navigation.compose.rememberNavController
 import com.ardwiinoo.githubuserjetpack.navigation.NavigationItem
 import com.ardwiinoo.githubuserjetpack.navigation.Screen
 import com.ardwiinoo.githubuserjetpack.ui.screen.about.AboutScreen
+import com.ardwiinoo.githubuserjetpack.ui.screen.detail.DetailScreen
+import com.ardwiinoo.githubuserjetpack.ui.screen.favorite.FavoriteScreen
 import com.ardwiinoo.githubuserjetpack.ui.screen.home.HomeScreen
 
 
@@ -42,13 +44,19 @@ fun GithubUserAppJetpack(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(navController = navController)
             }
             composable(Screen.Favorite.route) {
-
+                FavoriteScreen()
             }
             composable(Screen.Profile.route) {
                 AboutScreen()
+            }
+            composable(Screen.Detail.route) { backStackEntry ->
+                val username = backStackEntry.arguments?.getString("username")
+                username?.let { DetailScreen(username = it) } ?: run {
+                    Text(text = "Error: Username not found")
+                }
             }
         }
     }
@@ -88,7 +96,7 @@ private fun BottomBar(
                     icon = {
                         Icon(
                             imageVector = item.icon,
-                            contentDescription = item.title
+                            contentDescription = if(item.title == "Profile") "about_page" else item.title
                         )
                     },
                     label = { Text(item.title) },

@@ -1,11 +1,16 @@
 package com.ardwiinoo.githubuserjetpack.di
 
+import android.content.Context
+import androidx.room.Room
 import com.ardwiinoo.githubuserjetpack.BuildConfig
+import com.ardwiinoo.githubuserjetpack.data.local.database.AppDatabase
 import com.ardwiinoo.githubuserjetpack.data.remote.apiService.ApiService
 import com.ardwiinoo.githubuserjetpack.data.repository.ApiRepository
+import com.ardwiinoo.githubuserjetpack.data.repository.LocalRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -51,5 +56,21 @@ object AppModule {
     @Provides
     fun provideApiRepository(apiService: ApiService): ApiRepository {
         return ApiRepository(apiService)
+    }
+
+    @Provides
+    fun provideLocalRepository(database: AppDatabase): LocalRepository {
+        return LocalRepository(database)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAppDatabase(@ApplicationContext appContext: Context) : AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java, "github_database"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
